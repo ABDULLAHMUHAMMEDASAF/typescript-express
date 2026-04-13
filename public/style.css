@@ -1,0 +1,151 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  background-color: lightblue;
+  margin-top: 3px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 318ms all ease-in-out;
+}
+
+.btn-sil {
+  appearance: none;
+  outline: none;
+  border: 1px solid crimson;
+  padding: 3px 5px;
+  background-color: #000;
+  box-shadow: 0 2px 16px 1px tomato;
+  color: whitesmoke;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+li:hover {
+  background-color: tomato;
+  color: whitesmoke;
+}
+
+li:hover .btn-sil {
+  background-color: tomato;
+  color: whitesmoke;
+}
+
+.btn {
+  appearance: none;
+  outline: none;
+  background-color: #000;
+  padding: 10px 30px;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 0 2px 16px 1px crimson;
+  border: 1px solid crimson;
+  cursor: pointer;
+}
+
+.txt {
+  appearance: none;
+  outline: none;
+  padding: 7px 30px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid tomato;
+  border-radius: 5px;
+  transition: 318ms all ease-in-out;
+}
+
+.txt:focus,
+.txt:active {
+  box-shadow: 0 2px 16px 1px crimson;
+}
+
+#btnGetir {
+  margin-right: auto;
+}
+
+#result {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  visibility: hidden;
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border: 8px solid rgba(255, 255, 255, 0.3); /* Sönük halka */
+  border-top: 8px solid crimson; /* Parlayan canlı kısım */
+  border-radius: 50%; /* Tam daire yapar */
+  animation: spin 0.7s linear infinite; /* Senin mevcut spin animasyonun */
+  box-shadow: 0 0 15px crimson; /* Hafif bir parlama efekti */
+}
+
+.material-symbols-outlined {
+  font-size: 148px !important;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.new {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-duzenle {
+  appearance: none;
+  outline: none;
+  border: 1px solid black;
+  padding: 3px 5px;
+  background-color: tomato;
+  box-shadow: 0 2px 16px 1px crimson;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 3px;
+  transition: 318ms all ease-in-out;
+}
+
+.btn-duzenle:hover {
+  background-color: black;
+  color: crimson;
+}

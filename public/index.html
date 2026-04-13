@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend</title>
+    <script src="./main.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div>
+      <div id="result"></div>
+    </div>
+
+    <div class="new">
+      <button id="btnGetir" class="btn">Get Users</button>
+      <input id="val" class="txt" type="text" />
+      <button id="btnEkle" class="btn">Veri Tabanına Ekle</button>
+    </div>
+
+    <button onclick="adminPanel()">Admin panelini aç</button>
+
+    <div id="overlay">
+      <div class="loader"></div>
+    </div>
+
+    <script>
+      async function adminPanel() {
+        const res = await fetch("http://localhost:1453/admin/details");
+        const data = await res.json();
+
+        const h1 = document.createElement("h1");
+        const h3 = document.createElement("h3");
+
+        h1.textContent = data.page;
+        h3.textContent = data.detail;
+
+        h1.appendChild(h3);
+        console.log(h1);
+        document.body.appendChild(h1);
+      }
+    </script>
+  </body>
+</html>
