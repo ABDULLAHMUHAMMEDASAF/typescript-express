@@ -8,8 +8,8 @@ const userRoutes = require("./routes/userRoutes.js");
 const adminRoutes = require("./routes/adminRoutes.js");
 
 app.use(express.json());
-app.use(cors());
 app.use(express.static("public"));
+app.use(cors({ origin: "*" })); // Her yerden gelen isteğe tam izin ver
 
 mongoose
   .connect(process.env.MONGO_DB_URI)
@@ -18,8 +18,8 @@ mongoose
 
 app.use("/users", userRoutes);
 //! Bu kısmı yeni ekledim. Tıpkı userRoutes daki gibi o koridordaki masaları teker teker yazacaktım. /settings /details gibi
-app.use("/admin", adminRoutes);
+app.use("/admins", adminRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server ${PORT} portunu dinlmeye başladı...`);
 });

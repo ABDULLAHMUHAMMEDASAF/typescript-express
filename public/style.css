@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 10px;
@@ -13,18 +17,43 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  font-size: 1.6rem;
+
+  /* Derin Lacivert Geçişi */
+  background: linear-gradient(160deg, #020b16 0%, #091e3a 50%, #162d4a 100%);
+  background-attachment: fixed;
+  color: #f1f1f1; /* Metinlerin okunabilirliği için açık gri/beyaz */
+}
+
+h1 {
+  background-color: black;
+  color: whitesmoke;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px 1px crimson;
 }
 
 li {
-  display: flex;
-  align-items: center;
-  background-color: lightblue;
-  margin-top: 3px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 5px;
+  background-color: #ffffff; /* Temiz beyaz */
+  margin-bottom: 10px; /* Araları biraz daha açalım */
+  padding: 12px 20px; /* Daha ferah iç boşluk */
+  border: none; /* Sert kenarlıktan kurtul */
+  border-radius: 12px; /* Daha yuvarlak, modern köşeler */
   cursor: pointer;
-  transition: 318ms all ease-in-out;
+  transition: 0.3s transform ease; /* Sadece büyüme efekti verelim */
+
+  /* Çok hafif ve doğal bir gölge */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #333; /* Yazı rengini biraz yumuşat */
+
+  display: flex;
+
+  align-items: center;
+  flex-wrap: wrap; /* Çok uzun isim olursa alt satıra geçsin */
+  gap: 10px;
 }
 
 .btn-sil {
@@ -41,8 +70,9 @@ li {
 }
 
 li:hover {
-  background-color: tomato;
-  color: whitesmoke;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
 }
 
 li:hover .btn-sil {
@@ -86,7 +116,8 @@ li:hover .btn-sil {
 
 #result {
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 500px;
+  padding: 1rem;
 }
 
 #overlay {
@@ -148,4 +179,50 @@ li:hover .btn-sil {
 .btn-duzenle:hover {
   background-color: black;
   color: crimson;
+}
+
+#admin-panel {
+  background-color: lightcoral;
+  padding: 16px;
+  border-radius: 5px;
+  margin-top: 25px;
+}
+
+#val {
+  background-color: lightblue;
+}
+
+/* Tablet ve Telefonlar için */
+@media (max-width: 768px) {
+  html {
+    font-size: 50%; /* Artık 1rem = 8px oldu, her şey orantılı küçüldü! */
+  }
+
+  .new {
+    flex-direction: column; /* Elemanları alt alta diz */
+    gap: 15px; /* Aralarına boşluk koy */
+  }
+
+  .txt,
+  .btn {
+    width: 100%; /* Mobilde tam genişlik kaplasınlar */
+    margin: 0; /* Kenar boşluklarını sıfırla */
+  }
+
+  #btnGetir {
+    margin: 0 0 15px 0; /* Alttaki elemanla arayı aç */
+    width: 100%;
+  }
+
+  body {
+    padding: 15px; /* Mobilde kenarlardan biraz daha boşluk */
+  }
+
+  #result {
+    max-height: 250px; /* Listeyi biraz daha kısa tutalım */
+  }
+
+  h1 {
+    font-size: 2.2rem; /* Başlığı biraz küçült */
+  }
 }

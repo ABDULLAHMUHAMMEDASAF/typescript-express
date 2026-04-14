@@ -5,7 +5,7 @@ const User = require("../models/User.js");
 //! Get users from DB
 router.get("/", async (req, res) => {
   try {
-    const users = await User.find().sort({ _id: -1 });
+    const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: "Veriler çekilemedi", error });
@@ -36,10 +36,7 @@ router.delete("/:id", async (req, res) => {
 //! Kuallanıcı bilgilerini güncelle
 router.put("/:id", async (req, res) => {
   try {
-
-  } catch {
-
-  }
+  } catch {}
 });
 
 //! Test amaçlı bir router

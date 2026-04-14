@@ -3,6 +3,7 @@ const btnGetir = document.getElementById("btnGetir");
 const overlay = document.getElementById("overlay");
 const val = document.getElementById("val");
 const btnEkle = document.getElementById("btnEkle");
+const adminPanel = document.getElementById("admin-panel");
 
 // --- 1. YARDIMCI FONKSİYON: EKRANA KULLANICI EKLEME ---
 // Bu fonksiyonu hem GET hem POST içinde kullanacağız.
@@ -23,7 +24,7 @@ function renderUser(user) {
     try {
       overlay.style.visibility = "visible";
 
-      const res = await fetch("http://localhost:1453/users/" + user._id, {
+      const res = await fetch(`${API_URL}/users/` + user._id, {
         method: "DELETE",
       });
 
@@ -49,12 +50,13 @@ function renderUser(user) {
 async function loadUsers() {
   try {
     overlay.style.visibility = "visible";
-    const res = await fetch("http://localhost:1453/users");
+    const res = await fetch(`${API_URL}/users`);
     const users = await res.json();
 
     result.innerHTML = ""; // Listeyi temizle
     users.forEach((user) => renderUser(user)); // Her biri için renderUser'ı çağır
   } catch (error) {
+    alert("Veri çekme hatası: " + error.message);
     console.error("Yükleme hatası:", error);
   } finally {
     overlay.style.visibility = "hidden";
@@ -72,7 +74,7 @@ btnEkle.addEventListener("click", async () => {
 
   try {
     overlay.style.visibility = "visible";
-    const res = await fetch("http://localhost:1453/users", {
+    const res = await fetch(`${API_URL}/users`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ name: userName }),
@@ -90,4 +92,25 @@ btnEkle.addEventListener("click", async () => {
   }
 });
 
+//! Eventlistener ...
 btnGetir.addEventListener("click", loadUsers);
+
+//! Eventlistener ...
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    overlay.style.visibility = "visible";
+    const data = await fetch(`${API_URL}/admins/`);
+    const admins = await data.json();
+
+    adminPanel.innerHTML = "";
+    admins.forEach((admin) => {
+      const div = document.createElement("admin");
+      div.textContent = `${admin.name} -- ${admin.role}`;
+      adminPanel.appendChild(div);
+    });
+  } catch (error) {
+    console.error("Admin liste yükleme hatası:", error);
+  } finally {
+    overlay.style.visibility = "hidden";
+  }
+});
