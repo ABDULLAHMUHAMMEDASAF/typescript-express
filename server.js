@@ -17,6 +17,7 @@ mongoose
   .catch((err) => console.log("Veritabanı bağlantı hatası", err));
 
 app.use("/users", userRoutes);
+
 //! Bu kısmı yeni ekledim. Tıpkı userRoutes daki gibi o koridordaki masaları teker teker yazacaktım. /settings /details gibi
 app.use("/admins", adminRoutes);
 

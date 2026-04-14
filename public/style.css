@@ -186,6 +186,8 @@ li:hover .btn-sil {
   padding: 16px;
   border-radius: 5px;
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 #val {
@@ -224,5 +226,81 @@ li:hover .btn-sil {
 
   h1 {
     font-size: 2.2rem; /* Başlığı biraz küçült */
+  }
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 3px;
+    appearance: none;
+    outline: none;
+    border: 1px solid black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.3s all ease-in-out;
+    &:active,
+    &:focus {
+      background-color: lightblue;
+      box-shadow: 0 0 8px 1px crimson;
+    }
+  }
+
+  label {
+    width: 100%;
+  }
+
+  button {
+    appearance: none;
+    outline: none;
+    border: 1px solid black;
+    padding: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: crimson;
+    color: whitesmoke;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 20px;
+    transition: 0.3s all ease-in-out;
+
+    &:hover {
+      background-color: tomato;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: crimson;
+  font-weight: 600;
+  margin-right: auto;
+  background-color: black;
+  padding: 10px 15px;
+  border: 1px solid gray;
+  box-shadow: 0 0 8px 1px gray;
+  border-radius: 5px;
+  transition: 0.3s all ease-in-out;
+  &:hover {
+    background-color: tomato;
+    color: black;
   }
 }

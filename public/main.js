@@ -5,7 +5,8 @@ const val = document.getElementById("val");
 const btnEkle = document.getElementById("btnEkle");
 const adminPanel = document.getElementById("admin-panel");
 
-// --- 1. YARDIMCI FONKSİYON: EKRANA KULLANICI EKLEME ---
+
+//? --- 1. YARDIMCI FONKSİYON: EKRANA KULLANICI EKLEME ---
 // Bu fonksiyonu hem GET hem POST içinde kullanacağız.
 function renderUser(user) {
   const li = document.createElement("li");
@@ -46,7 +47,7 @@ function renderUser(user) {
   result.prepend(li);
 }
 
-// --- 2. TÜM LİSTEYİ GETİRME ---
+//? --- 2. TÜM LİSTEYİ GETİRME ---
 async function loadUsers() {
   try {
     overlay.style.visibility = "visible";
@@ -63,7 +64,7 @@ async function loadUsers() {
   }
 }
 
-// --- 3. YENİ VERİ EKLEME ---
+//? --- 3. YENİ VERİ EKLEME ---
 btnEkle.addEventListener("click", async () => {
   let userName = val.value.trim();
   if (!userName) return alert("Lütfen bir isim girin!");
