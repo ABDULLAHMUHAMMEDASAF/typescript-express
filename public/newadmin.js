@@ -1,10 +1,9 @@
 const adminName = document.getElementById("txtName");
 const adminPassword = document.getElementById("txtPassword");
-const adminRole = document.getElementById("txtRole");
+const adminRole = document.getElementById("cmbRole");
 const btnKaydet = document.getElementById("btnKaydet");
 
 btnKaydet.addEventListener("click", async () => {
-  console.log("object");
   const name = adminName.value.trim();
   const pass = adminPassword.value;
   const role = adminRole.value.trim();
@@ -14,7 +13,6 @@ btnKaydet.addEventListener("click", async () => {
   }
 
   try {
-
     // Hatırlatma: Rota backend'de yazdığımız /register rotası olmalı
     const res = await fetch(`${API_URL}/admins/register`, {
       method: "POST",
@@ -36,3 +34,18 @@ btnKaydet.addEventListener("click", async () => {
     alert("Sunucuya bağlanılamadı!");
   }
 });
+
+document.querySelectorAll('.select-wrapper select').forEach(select => {
+  select.addEventListener('focus', () => {
+    select.closest('.select-wrapper').classList.add('open');
+  });
+
+  select.addEventListener('blur', () => {
+    select.closest('.select-wrapper').classList.remove('open');
+  });
+
+  select.addEventListener('change', () => {
+    setTimeout(() => select.blur(), 0); // ✅
+  });
+});
+

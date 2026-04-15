@@ -15,8 +15,13 @@
         <input id="txtName" type="text" />
         <label for="txtPassword">User Password:</label>
         <input id="txtPassword" type="password" />
-        <label for="txtRole">User Role:</label>
-        <input id="txtRole" type="text" />
+        <label for="cmbRole">User Role:</label>
+        <select id="cmbRole" name="cmbRole" class="admin-select">
+          <option value="" disabled selected>Rol Seçiniz...</option>
+          <option value="user">Standart Kullanıcı</option>
+          <option value="editor">Editör</option>
+          <option value="admin">Yönetici (Admin)</option>
+        </select>
         <button id="btnKaydet">Kaydet</button>
       </div>
     </div>

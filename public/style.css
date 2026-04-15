@@ -239,52 +239,70 @@ li:hover .btn-sil {
 .admin-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 50px;
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.7);
-  border-radius: 15px;
+
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  padding: 80px 40px;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
   input[type="text"],
   input[type="password"] {
     width: 100%;
-    margin-bottom: 10px;
-    margin-top: 3px;
-    appearance: none;
+    margin-bottom: 15px;
+    margin-top: 5px;
     outline: none;
-    border: 1px solid black;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: 0.3s all ease-in-out;
-    &:active,
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+
     &:focus {
-      background-color: lightblue;
-      box-shadow: 0 0 8px 1px crimson;
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #74b9ff;
+      box-shadow: 0 0 10px rgba(116, 185, 255, 0.3);
     }
   }
 
   label {
     width: 100%;
+    text-align: left;
   }
 
-  button {
-    appearance: none;
-    outline: none;
-    border: 1px solid black;
-    padding: 7px;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: crimson;
-    color: whitesmoke;
-    font-weight: 600;
-    width: 100%;
-    margin-top: 20px;
-    transition: 0.3s all ease-in-out;
+  &:focus {
+    border-color: #74b9ff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
 
-    &:hover {
-      background-color: tomato;
-    }
+#btnKaydet {
+  cursor: pointer;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 10px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
@@ -303,4 +321,50 @@ a {
     background-color: tomato;
     color: black;
   }
+}
+
+
+
+
+/* Select Kutusu Genel Stili */
+.admin-select {
+  width: 100%;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  /* Tarayıcının kendi okunu gizle */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Sabit ve şık bir ok işareti (SVG kullanıyoruz, asla kaybolmaz) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+  padding-right: 40px; /* Metin okun üstüne binmesin */
+}
+
+/* Select odaklandığında veya açıldığında */
+.admin-select:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #74b9ff;
+  box-shadow: 0 0 10px rgba(116, 185, 255, 0.3);
+}
+
+/* AÇILIR LİSTE (DROPDOWN) DÜZELTMESİ */
+/* Burası o 'iğrenç' beyazlığı ve okunmayan yazıları düzeltir */
+.admin-select option {
+  background-color: #162d4a; /* Sayfa arka plan rengine yakın mat bir lacivert */
+  color: white;
+  padding: 10px;
 }
