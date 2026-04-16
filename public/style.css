@@ -239,7 +239,6 @@ li:hover .btn-sil {
 .admin-container {
   display: flex;
   flex-direction: column;
-
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
@@ -323,14 +322,9 @@ a {
   }
 }
 
-
-
-
 /* Select Kutusu Genel Stili */
 .admin-select {
   width: 100%;
-  margin-bottom: 15px;
-  margin-top: 5px;
   outline: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
@@ -340,18 +334,9 @@ a {
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  
-  /* Tarayıcının kendi okunu gizle */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  /* Sabit ve şık bir ok işareti (SVG kullanıyoruz, asla kaybolmaz) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 15px center;
-  background-size: 16px;
-  padding-right: 40px; /* Metin okun üstüne binmesin */
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 /* Select odaklandığında veya açıldığında */
@@ -366,5 +351,5 @@ a {
 .admin-select option {
   background-color: #162d4a; /* Sayfa arka plan rengine yakın mat bir lacivert */
   color: white;
-  padding: 10px;
+  padding: 100px;
 }
