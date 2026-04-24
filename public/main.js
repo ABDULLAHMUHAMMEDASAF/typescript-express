@@ -1,17 +1,23 @@
+//? --- DEĞİŞKENLER VE SEÇİCİLER ---
 const result = document.getElementById("result");
 const btnGetir = document.getElementById("btnGetir");
 const overlay = document.getElementById("overlay");
 const val = document.getElementById("val");
 const btnEkle = document.getElementById("btnEkle");
 const adminPanel = document.getElementById("admin-panel");
+import { emreFetch } from "./api.js"; // En üste import ekledik
 
+//? --- GÜVENLİK KONTROLÜ (FEDAİ) ---
+const token = localStorage.getItem("adminToken");
+//! Eğer token yoksa, aşağıdaki hiçbir kodun çalışmasına izin verme ve kov!
+if (!token) window.location.href = "login.html";
 
 //? --- 1. YARDIMCI FONKSİYON: EKRANA KULLANICI EKLEME ---
-// Bu fonksiyonu hem GET hem POST içinde kullanacağız.
 function renderUser(user) {
   const li = document.createElement("li");
   const btn = document.createElement("button");
   const btn2 = document.createElement("button");
+
   btn.textContent = "Sil";
   btn2.textContent = "Düzenle";
   btn.className = "btn-sil";
@@ -19,25 +25,25 @@ function renderUser(user) {
   li.textContent = user.name;
 
   btn.onclick = async () => {
-    // 1. Önce onayı al, SONRA overlay'i aç (Daha güvenli)
+    //! 1. Onay al
     if (!confirm(`${user.name} silinsin mi?`)) return;
 
     try {
       overlay.style.visibility = "visible";
 
-      const res = await fetch(`${API_URL}/users/` + user._id, {
+      //! emreFetch kullanımı: Token otomatik eklenir
+      const res = await emreFetch(`${API_URL}/users/${user._id}`, {
         method: "DELETE",
       });
 
-      if (res.ok) {
+      if (res && res.ok) {
         li.remove();
       } else {
-        alert("Sunucu silme işlemini reddetti.");
+        alert("Silme işlemi başarısız. Yetkiniz olmayabilir.");
       }
     } catch (error) {
       console.error("Silme hatası:", error);
     } finally {
-      // 2. Ne olursa olsun burası çalışır ve gizler
       overlay.style.visibility = "hidden";
     }
   };
@@ -47,17 +53,21 @@ function renderUser(user) {
   result.prepend(li);
 }
 
-//? --- 2. TÜM LİSTEYİ GETİRME ---
+//? --- 2. TÜM KULLANICI LİSTESİNİ GETİRME ---
 async function loadUsers() {
   try {
     overlay.style.visibility = "visible";
-    const res = await fetch(`${API_URL}/users`);
-    const users = await res.json();
 
-    result.innerHTML = ""; // Listeyi temizle
-    users.forEach((user) => renderUser(user)); // Her biri için renderUser'ı çağır
+    //! emreFetch ile temiz bir GET isteği
+    const res = await emreFetch(`${API_URL}/users`);
+
+    if (res && res.ok) {
+      const users = await res.json();
+      result.innerHTML = ""; // Listeyi temizle
+      users.forEach((user) => renderUser(user));
+    }
   } catch (error) {
-    alert("Veri çekme hatası: " + error.message);
+    alert("Veri çekme hatası!");
     console.error("Yükleme hatası:", error);
   } finally {
     overlay.style.visibility = "hidden";
@@ -69,22 +79,23 @@ btnEkle.addEventListener("click", async () => {
   let userName = val.value.trim();
   if (!userName) return alert("Lütfen bir isim girin!");
 
-  // Türkçe Formatlama
+  //! Türkçe Formatlama
   userName = userName.toLocaleLowerCase("tr-TR");
   userName = userName.charAt(0).toLocaleUpperCase("tr-TR") + userName.slice(1);
 
   try {
     overlay.style.visibility = "visible";
-    const res = await fetch(`${API_URL}/users`, {
+
+    //! emreFetch POST isteği: Headers otomatik halledilir
+    const res = await emreFetch(`${API_URL}/users`, {
       method: "POST",
-      headers: { "Content-type": "application/json" },
       body: JSON.stringify({ name: userName }),
     });
 
-    if (res.ok) {
+    if (res && res.ok) {
       const newUser = await res.json();
-      renderUser(newUser); // Yeni geleni listeye ekle (Silme butonu otomatik hazır gelir)
-      val.value = ""; // Inputu temizle
+      renderUser(newUser);
+      val.value = "";
     }
   } catch (error) {
     alert("Ekleme hatası!");
@@ -93,25 +104,60 @@ btnEkle.addEventListener("click", async () => {
   }
 });
 
-//! Eventlistener ...
-btnGetir.addEventListener("click", loadUsers);
-
-//! Eventlistener ...
-document.addEventListener("DOMContentLoaded", async () => {
+//! Admin listesini getir
+async function fetchAdminList() {
   try {
     overlay.style.visibility = "visible";
-    const data = await fetch(`${API_URL}/admins/`);
-    const admins = await data.json();
+    const res = await emreFetch(`${API_URL}/admins/`);
 
-    adminPanel.innerHTML = "";
-    admins.forEach((admin) => {
-      const div = document.createElement("admin");
-      div.textContent = `${admin.name} -- ${admin.role}`;
-      adminPanel.appendChild(div);
-    });
+    if (res && res.ok) {
+      const admins = await res.json();
+      adminPanel.innerHTML = "";
+
+      admins.forEach((admin) => {
+        const div = document.createElement("div");
+        const btn = document.createElement("button");
+        btn.textContent = "Sil";
+        btn.className = "btn-sil";
+        div.className = "admin-box";
+        div.textContent = `${admin.name} -- (${admin.role})`;
+        div.appendChild(btn);
+        adminPanel.appendChild(div);
+
+        btn.onclick = async () => {
+          //! 1. Onay al
+          if (!confirm(`${admin.name} Silinsin mi?`)) return;
+
+          try {
+            overlay.style.visibility = "visible";
+
+            //! emreFetch kullanımı: Token otomatik eklenir
+            const res = await emreFetch(`${API_URL}/admins/${admin._id}`, {
+              method: "DELETE",
+            });
+
+            if (res && res.ok) {
+              div.remove();
+            } else {
+              alert("Silme işlemi başarısız. Yetkiniz olmayabilir.");
+            }
+          } catch (error) {
+            console.error("Silme hatası:", error);
+          } finally {
+            overlay.style.visibility = "hidden";
+          }
+        };
+      });
+    }
   } catch (error) {
-    console.error("Admin liste yükleme hatası:", error);
+    console.error("Admin listesi yüklenemedi:", error);
   } finally {
     overlay.style.visibility = "hidden";
   }
-});
+}
+
+//! Buton dinleyicisi
+btnGetir.addEventListener("click", loadUsers);
+
+//! Admin listesini yükle
+fetchAdminList();
