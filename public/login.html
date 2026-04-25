@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Giriş</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f0f2f5;
+      }
+      .login-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-card">
+      <h2>Yönetici Girişi</h2>
+      <input type="text" id="name" placeholder="Kullanıcı Adı" />
+      <input type="password" id="password" placeholder="Şifre" />
+      <button onclick="handleLogin()">Giriş Yap</button>
+      <p id="message"></p>
+    </div>
+
+    <script>
+      async function handleLogin() {
+        const name = document.getElementById("name").value;
+        const password = document.getElementById("password").value;
+        const messageDiv = document.getElementById("message");
+
+        try {
+          const response = await fetch("http://localhost:80/admins/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, password }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // !!! KRİTİK NOKTA: Token'ı tarayıcı hafızasına (localStorage) saklıyoruz
+            localStorage.setItem("adminToken", data.token);
+            messageDiv.innerText = "Giriş başarılı! Yönlendiriliyorsunuz...";
+            messageDiv.style.color = "green";
+            window.location.href = "index.html";
+
+            // Başarılıysa paneli görebiliriz (Bir sonraki adımda yapacağımız sayfa)
+            // window.location.href = "/dashboard.html";
+          } else {
+            messageDiv.innerText = data.message;
+            messageDiv.style.color = "red";
+          }
+        } catch (error) {
+          messageDiv.innerText = "Sunucuya bağlanılamadı!";
+        }
+      }
+    </script>
+  </body>
+</html>
