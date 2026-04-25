@@ -1,2 +1,2 @@
 // config.js
-const API_URL = "http://localhost"; // Sunucu bilgisayarın sabit IP'si
+const API_URL = "http://localhost:8080"; // Sunucu bilgisayarın sabit IP'si

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Admin Giriş</title>
+    <script src="./config.js" defer></script>
     <style>
       body {
         font-family: sans-serif;
@@ -53,7 +54,7 @@
         const messageDiv = document.getElementById("message");
 
         try {
-          const response = await fetch("http://localhost:80/admins/login", {
+          const response = await fetch(`${API_URL}/admins/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, password }),
